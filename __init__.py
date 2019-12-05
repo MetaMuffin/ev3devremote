@@ -5,6 +5,10 @@ host = "0.0.0.0"
 port = 0
 secret = "" # not actually secret because the socket is not encrypted
 client_socket = None
+loggging = False
+
+def do_logging():
+    loggging = True
 
 def config_device(host_,port_,secret_):
     host = host_
@@ -20,10 +24,10 @@ def config_device(host_,port_,secret_):
         raise Exception("Authentification Failed. Secret might not be correct.")
 
 def sock_send(msg):
-    if do_loggging: print('[o] ' + msg)
+    if loggging: print('[o] ' + msg)
     client_socket.send(msg.encode())
     data = client_socket.recv(1024).decode()
-    if do_loggging: print('[i] ' + data) 
+    if loggging: print('[i] ' + data) 
     return data
 
 def config_tank_drive(ports):
